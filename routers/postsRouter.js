@@ -68,6 +68,22 @@ router.put('/:id', async (req, res)=>{
 	}
 })
 
+router.delete('/:id', async (req, res)=>{
+	console.log('delete post is called')
+	try{
+		const post = await db.remove(req.params.id)
+		if(post > 0){
+			res.sendStatus(200).send(post)
+		}else{
+			res.sendStatus(404).send({message: "Unable to delete post with this post id"})
+		}
+		console.log('post', post)
+	}catch(err){
+		console.log('err', err)
+		res.sendStatus(500).send({error: "Problem deleting this post"})
+	}
+})
+
 
 
 module.exports = router

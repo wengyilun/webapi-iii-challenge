@@ -68,5 +68,23 @@ router.put('/:id', async (req, res)=>{
 })
 
 
+router.delete('/:id', async (req, res)=>{
+	console.log('delete user is called')
+	try{
+		const user = await db.remove(req.params.id)
+		if(user > 0){
+			res.sendStatus(200).send(user)
+		}else{
+			res.sendStatus(404).send({message: "Unable to delete user with this user id"})
+		}
+		console.log('user', user)
+	}catch(err){
+		console.log('err', err)
+		res.sendStatus(500).send({error: "Problem deleting this user"})
+	}
+})
+
+
+
 
 module.exports = router
