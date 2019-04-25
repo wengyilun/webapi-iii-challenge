@@ -31,5 +31,22 @@ router.get('/:id', async (req, res)=>{
 	}
 })
 
+router.post('/', async (req, res)=>{
+	console.log('insert user is called')
+	try{
+		if(!req.body.name){
+			res.status(400).send({message: "User's name field cannot be left blank"})
+		}
+		const user = await db.insert(req.body)
+		res.status(201).send(user)
+		
+		console.log('user', user)
+	}catch(err){
+		console.log('err', err)
+		res.status(500).send({error: "Problem adding post"})
+	}
+})
+
+
 
 module.exports = router
