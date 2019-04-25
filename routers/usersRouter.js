@@ -85,6 +85,19 @@ router.delete('/:id', async (req, res)=>{
 })
 
 
+router.get('/:id/posts', async (req, res)=>{
+	console.log('get all user posts is called')
+	try{
+		const posts = await db.getUserPosts(req.params.id)
+		 res.status(200).send(posts)
+		console.log('posts', posts)
+	}catch(err){
+		console.log('err', err)
+		res.status(500).send({error: "Problem retrieving user's posts"})
+	}
+})
+
+
 
 
 module.exports = router
