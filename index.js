@@ -1,6 +1,7 @@
 const server = require('./server')
+require('dotenv').config()
 
-server.listen('3000', ()=>{
-	console.log('server running on port 3000')
+server.listen(process.env.PORT, ()=>{
+	console.log(`server running on http://localhost/${process.env.PORT}`)
 })
 
