@@ -15,5 +15,21 @@ router.get('/', async (req, res)=>{
 	}
 })
 
+router.get('/:id', async (req, res)=>{
+	console.log('get user by id is called')
+	try{
+		const user = await db.getById(req.params.id)
+		if(user){
+			res.status(200).send(user)
+		}else{
+			res.status(404).send({message: "user with that id cannot be found"})
+		}
+		console.log('user', user)
+	}catch(err){
+		console.log('err', err)
+		res.status(500).send({error: "Problem retrieving users"})
+	}
+})
+
 
 module.exports = router
