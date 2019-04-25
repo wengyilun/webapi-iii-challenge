@@ -48,5 +48,25 @@ router.post('/', async (req, res)=>{
 })
 
 
+router.put('/:id', async (req, res)=>{
+	console.log('update user is called')
+	try{
+		if(!req.body.name){
+			res.sendStatus(400).send({message: "User's name field cannot be left blank"})
+		}
+		const user = await db.update(req.params.id, req.body)
+		if(user){
+			res.sendStatus(200).send(user)
+		}else{
+			res.sendStatus(404).send({message: "Unable to update user with this user id"})
+		}
+		console.log('user', user)
+	}catch(err){
+		console.log('err', err)
+	   res.sendStatus(500).send({error: "Problem updating this user"})
+	}
+})
+
+
 
 module.exports = router
